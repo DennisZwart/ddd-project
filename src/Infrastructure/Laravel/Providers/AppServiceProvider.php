@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace Src\Infrastructure\Laravel\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -11,7 +11,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $reflection = new \ReflectionClass($this->app);
+        $namespaceProperty = $reflection->getProperty('namespace');
+        $namespaceProperty->setAccessible(true);
+        $namespaceProperty->setValue($this->app, 'Src\\');
     }
 
     /**
